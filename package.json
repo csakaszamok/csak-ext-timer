@@ -1,0 +1,30 @@
+{
+    "name": "csak-ext-timer",
+    "displayName": "csak-ext-timer",
+    "description": "If you want to know what time was spent for projects",
+    "version": "0.5.0",
+    "publisher": "csakaszamok",
+    "engines": {
+        "vscode": "^1.18.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+       "*"
+    ],    
+    "main": "./out/extension",   
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
