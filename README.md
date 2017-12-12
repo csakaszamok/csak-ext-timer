@@ -1,4 +1,4 @@
-# csak-ext-timer README
+# csak-ext-timer (vscode extension)
 
 If you want to know what time was spent for projects.
 
