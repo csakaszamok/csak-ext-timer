@@ -11,7 +11,7 @@ If you want to know what time was spent for projects.
 * Timer is paused automatic after 10min inactivity
 * Save every 60sec or when saved a document
 
-![](screen1.png)
+![](https://github.com/csakaszamok/csak-ext-timer/blob/master/screen1.PNG?raw=true)
 
 ## Release Notes
 
