@@ -21,3 +21,7 @@ Users appreciate release notes as you update your extension.
 
 Initial release
 
+### 0.5.1
+
+Fix: wrong directory path
+

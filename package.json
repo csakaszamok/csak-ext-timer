@@ -2,7 +2,7 @@
     "name": "csak-ext-timer",
     "displayName": "csak-ext-timer",
     "description": "If you want to know what time was spent for projects",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "publisher": "csakaszamok",
     "engines": {
         "vscode": "^1.18.0"

@@ -185,19 +185,22 @@ class WordCounterController {
         console.log('Start at', this.starttime.toLocaleTimeString());
         this._wordCounter = wordCounter;
 
+
+        //console.log(vscode.workspace.workspaceFolders.length);
+
         if (!vscode.window.activeTextEditor || !vscode.window.activeTextEditor.document) {
             return;
         }
         //set logfile path
-        var s = path.normalize(vscode.window.activeTextEditor.document.fileName);
-        var p = path.dirname(s);
+       // var s = path.normalize(vscode.window.activeTextEditor.document.fileName);
+        var p = vscode.workspace.workspaceFolders[0].uri.fsPath
         var folderpath = p.split('\\').pop();
         if (folderpath != '.vscode') {
             folderpath = p + '/.vscode'
         } else {
             folderpath = p;
         }
-        if (!fs.existsSync(folderpath)){
+        if (!fs.existsSync(folderpath)) {
             fs.mkdirSync(folderpath);
         }
         this.logfile = folderpath + '/csak-timelog.json';
@@ -255,7 +258,7 @@ class WordCounterController {
             this.startTimer();
         }
         //this._wordCounter.updateWordCount(this.getElapsedTime());
-        
+
     }
 }
 
