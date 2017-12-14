@@ -5,3 +5,20 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 - Initial release
+
+## Release Notes
+
+Users appreciate release notes as you update your extension.
+
+### 0.5.0
+
+Initial release
+
+### 0.5.1
+
+Fix: wrong directory path
+
+### 0.5.2
+
+Add logo
+

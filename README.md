@@ -13,15 +13,5 @@ If you want to know what time was spent for projects.
 
 ![](https://github.com/csakaszamok/csak-ext-timer/blob/master/screen1.PNG?raw=true)
 
-## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 0.5.0
-
-Initial release
-
-### 0.5.1
-
-Fix: wrong directory path
 

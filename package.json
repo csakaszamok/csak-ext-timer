@@ -2,7 +2,7 @@
     "name": "csak-ext-timer",
     "displayName": "csak-ext-timer",
     "description": "If you want to know what time was spent for projects",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "publisher": "csakaszamok",
     "engines": {
         "vscode": "^1.18.0"
@@ -11,9 +11,17 @@
         "Other"
     ],
     "activationEvents": [
-       "*"
-    ],    
-    "main": "./out/extension",   
+        "*"
+    ],
+    "icon": "csak-ext-timer-logo.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/csakaszamok/csak-ext-timer"
+    },
+    "bugs": {
+        "url": "https://github.com/csakaszamok/csak-ext-timer/issues"
+    },
+    "main": "./out/extension",
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
