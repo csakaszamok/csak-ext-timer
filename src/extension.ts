@@ -45,7 +45,7 @@ class WordCounter {
         hours = hours - (days * 24);
         minutes = minutes - (days * 24 * 60) - (hours * 60);
         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-        days = Math.floor(hours / 8); //8 hour per workday
+        days = Math.floor((days * 24 + hours) / 8); //8 hour per workday
 
         function padding(num) {
             return num < 10 ? '0' + num : num;
@@ -192,7 +192,7 @@ class WordCounterController {
             return;
         }
         //set logfile path
-       // var s = path.normalize(vscode.window.activeTextEditor.document.fileName);
+        // var s = path.normalize(vscode.window.activeTextEditor.document.fileName);
         var p = vscode.workspace.workspaceFolders[0].uri.fsPath
         var folderpath = p.split('\\').pop();
         if (folderpath != '.vscode') {

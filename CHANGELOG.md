@@ -22,3 +22,6 @@ Fix: wrong directory path
 
 Add logo
 
+## 0.5.3
+
+Fix day calculation
