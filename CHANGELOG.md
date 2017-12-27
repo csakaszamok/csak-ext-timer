@@ -29,3 +29,7 @@ Fix day calculation
 ## 0.5.4
 
 Add config file (now you can set hour per day)
+
+## 0.5.5
+
+Add gif to document
