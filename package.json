@@ -2,7 +2,7 @@
     "name": "csak-ext-timer",
     "displayName": "csak-ext-timer",
     "description": "If you want to know what time was spent for projects",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "publisher": "csakaszamok",
     "engines": {
         "vscode": "^1.18.0"
@@ -13,6 +13,15 @@
     "activationEvents": [
         "*"
     ],
+    "contributes": {
+		"commands": [
+			{
+				"command": "extension.csakexttimerFunctions",
+				"title": "csak-ext-timer config",
+				"description": "Save/load hours setting for csak-ext-timer"
+			}
+        ]
+    },
     "icon": "csak-ext-timer-logo.png",
     "repository": {
         "type": "git",

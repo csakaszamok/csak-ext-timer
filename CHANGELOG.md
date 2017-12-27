@@ -25,3 +25,7 @@ Add logo
 ## 0.5.3
 
 Fix day calculation
+
+## 0.5.4
+
+Add config file (now you can set hour per day)

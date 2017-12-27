@@ -4,6 +4,9 @@ import { window, commands, Disposable, ExtensionContext, StatusBarAlignment, Sta
 import { setInterval, clearInterval } from 'timers';
 import * as fs from 'fs';
 import * as vscode from 'vscode';
+import Window = vscode.window;
+import QuickPickItem = vscode.QuickPickItem;
+import QuickPickOptions = vscode.QuickPickOptions;
 
 const path = require('path');
 /*const remote = require('electron').remote
@@ -30,7 +33,48 @@ export function activate(context: ExtensionContext) {
     // Add to a list of disposables which are disposed when this extension is deactivated.
     context.subscriptions.push(controller);
     context.subscriptions.push(wordCounter);
+
+    vscode.commands.registerCommand('extension.csakexttimerFunctions', csakexttimerFunctions);
 }
+
+class Config {
+
+    private _hoursperday: number;
+
+    constructor() {
+        this.loadConfig();
+    }
+
+    loadConfig(path?) {
+        let obj = {};
+        let _path = path ? path : __dirname + '/../config.json';
+        if (fs.existsSync(_path)) {
+            obj = JSON.parse(fs.readFileSync(_path, 'utf8'));
+            this._hoursperday = (<any>obj).hoursperday;
+        } else {
+            this._hoursperday = 0;
+        }
+    }
+
+    saveConfig(path?) {
+        let _path = path ? path : __dirname + '/../config.json';
+        let obj = {
+            hoursperday: this._hoursperday
+        }
+        fs.writeFileSync(_path, JSON.stringify(obj), 'utf8');
+    }
+
+    get hoursperday() {
+        return this._hoursperday;
+    }
+
+    set hoursperday(value) {
+        this._hoursperday = value;
+    }
+
+}
+
+var globalConfig: Config;
 
 class WordCounter {
 
@@ -45,13 +89,21 @@ class WordCounter {
         hours = hours - (days * 24);
         minutes = minutes - (days * 24 * 60) - (hours * 60);
         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-        days = Math.floor((days * 24 + hours) / 8); //8 hour per workday
 
         function padding(num) {
-            return num < 10 ? '0' + num : num;
+            let result = '';
+            result = num < 1000 ? '000' + num : num;
+            result = num < 100 ? '00' + num : num;
+            result = num < 10 ? '0' + num : num;
+            return result;
         }
 
-        return `${days} day ${padding(hours)}:${padding(minutes)}:${padding(seconds)}`;
+        if (globalConfig.hoursperday && globalConfig.hoursperday > 0) {
+            days = Math.floor((days * 24 + hours) / globalConfig.hoursperday); //8 hour per workday
+            return `${days} day + ${padding(hours)}:${padding(minutes)}:${padding(seconds)}`;
+        }
+
+        return `${padding(hours + (days * 24))}:${padding(minutes)}:${padding(seconds)}`;
     }
 
     public updateWordCount(time, inactive = '') {
@@ -125,6 +177,8 @@ class WordCounterController {
 
     public logfile: string = '';
 
+    private config: object;
+
     private heartbeat() {
 
     }
@@ -177,6 +231,10 @@ class WordCounterController {
         instance = this;
         this.starttime = new Date();
         this.lasttime = this.starttime;
+
+        globalConfig = new Config();
+        globalConfig.loadConfig();
+
 
         /*  setTimeout(() => {
               this._wordCounter.updateWordCount(this.getElapsedTime());
@@ -262,3 +320,48 @@ class WordCounterController {
     }
 }
 
+
+// Main menu /////////////////////////////////////
+function csakexttimerFunctions() {
+
+    /*if (!vscode.window.activeTextEditor) {
+		vscode.window.showInformationMessage('Open a file first to manipulate text selections');
+		return;
+	}*/
+
+    var opts: QuickPickOptions = { matchOnDescription: true, placeHolder: "Spent timer" };
+    var items: QuickPickItem[] = [];
+
+    items.push({ label: "saveConfig", description: "save hour setting to config file" });
+    items.push({ label: "loadConfig", description: "load hour setting from config file" });
+
+    Window.showQuickPick(items).then((selection) => {
+        if (!selection) {
+            return;
+        }
+        let e = Window.activeTextEditor;
+        let d = e.document;
+        let sel = e.selections;
+
+        switch (selection.label) {
+            case "saveConfig":
+                vscode.window.showInputBox({ prompt: 'Hours per day' }).then(
+                    val => {
+                        let i = parseInt(val);
+                        globalConfig.hoursperday = i;
+                        globalConfig.saveConfig();
+                        vscode.window.showInformationMessage('Current hours per day is: ' + i);
+                    }
+                );
+                break;
+            case "loadConfig":
+                globalConfig.loadConfig();
+                vscode.window.showInformationMessage('Current hours per day is:  ' + globalConfig.hoursperday)
+                break;
+            default:
+                console.log("?")
+                break;
+        }
+    });
+
+}
