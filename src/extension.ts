@@ -100,6 +100,7 @@ class WordCounter {
 
         if (globalConfig.hoursperday && globalConfig.hoursperday > 0) {
             days = Math.floor((days * 24 + hours) / globalConfig.hoursperday); //8 hour per workday
+            hours = hours - (days * 8);
             return `${days} day + ${padding(hours)}:${padding(minutes)}:${padding(seconds)}`;
         }
 

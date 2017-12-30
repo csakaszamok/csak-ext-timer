@@ -33,3 +33,7 @@ Add config file (now you can set hour per day)
 ## 0.5.5
 
 Add gif to document
+
+## 0.5.6
+
+Bugfix hour display
